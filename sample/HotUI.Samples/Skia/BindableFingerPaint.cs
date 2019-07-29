@@ -10,13 +10,17 @@ namespace HotUI.Samples.Skia
         private readonly List<List<PointF>> _pointsLists = new List<List<PointF>>();
         private float _strokeWidth = 2;
         private string _strokeColor = "#00FF00";
-        
+        private string _canvasColor = "#FFFFFF";
+        //private PointF _translateTo = new PointF(0, 0);
+
         public BindableFingerPaint (
             Binding<float> strokeSize = null,
-            Binding<string> strokeColor = null)
+            Binding<string> strokeColor = null,
+            Binding<string> canvasColor = null)
         {
             Bind(strokeSize, nameof(StrokeWidth), value => StrokeWidth = value);
             Bind(strokeColor, nameof(StrokeColor), value => StrokeColor = value);
+            Bind(canvasColor, nameof(CanvasColor), value => CanvasColor = value);
         }
         
         public float StrokeWidth
@@ -38,13 +42,33 @@ namespace HotUI.Samples.Skia
                 Invalidate();
             }
         }
-        
+
+        public string CanvasColor
+        {
+            get => _canvasColor;
+            private set
+            {
+                SetValue(ref _canvasColor, value);
+                Invalidate();
+            }
+        }
+
+        //public PointF TranslateTo
+        //{
+        //    get => _translateTo;
+        //    private set
+        //    {
+        //        SetValue(ref _translateTo, value);
+        //        Invalidate();
+        //    }
+        //}
+
         public override void Draw(SKCanvas canvas, RectangleF dirtyRect)
         {
-            canvas.Clear(SKColors.White);
+            var canvasColor = new Color(_canvasColor);
+            canvas.Clear(canvasColor.ToSKColor());
 
             var color = new Color(_strokeColor);
-            
             var paint = new SKPaint()
             {
                 Color = color.ToSKColor(),

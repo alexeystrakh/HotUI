@@ -7,6 +7,7 @@ using HotUI.Samples.Skia;
 namespace HotUI.Samples {
 	public class MainPage : View {
 		List<MenuItem> pages = new List<MenuItem> {
+            new MenuItem("SkiaSample7",() => new SkiaSample7()),
             new MenuItem("Demo Credit Card",()=> new DemoCreditCardView()),
             new MenuItem("Demo Credit Card 2",()=> new DemoCreditCardView2()),
             new MenuItem("Binding Sample!",()=> new BindingSample()),

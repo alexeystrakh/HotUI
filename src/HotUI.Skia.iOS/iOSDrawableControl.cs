@@ -125,5 +125,23 @@ namespace HotUI.Skia.iOS
                 Logger.Warn("An unexpected error occured cancelling the touches within the control.", exc);
             }
         }
+
+        public override void SetNeedsDisplay()
+        {
+            System.Diagnostics.Debug.WriteLine($"SetNeedsDisplay");
+            base.SetNeedsDisplay();
+        }
+
+        public override void SetNeedsLayout()
+        {
+            System.Diagnostics.Debug.WriteLine($"SetNeedsLayout");
+            base.SetNeedsLayout();
+        }
+
+        public override void SetNeedsDisplayInRect(CGRect rect)
+        {
+            System.Diagnostics.Debug.WriteLine($"SetNeedsDisplayInRect");
+            base.SetNeedsDisplayInRect(rect);
+        }
     }
 }

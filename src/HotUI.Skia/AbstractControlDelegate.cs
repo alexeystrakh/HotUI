@@ -22,14 +22,24 @@ namespace HotUI.Skia
         }
 
         public IReadOnlyDictionary<string, BindingDefinition> Bindings => _bindings;
-        
+
         protected void Bind<T>(
-            Binding<T> binding, 
+            Binding<T> binding,
             string propertyName,
             Action<T> updater)
         {
             if (binding == null) return;
-            _bindings[propertyName] = new BindingDefinition(binding, propertyName, v => updater.Invoke((T)v));
+            _bindings[propertyName] = new BindingDefinition(binding, propertyName, v =>
+            {
+                try
+                {
+                    updater.Invoke((T)v);
+                }
+                catch(Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+            });
         }
         
         public PropertyMapper<DrawableControl> Mapper { get; }
@@ -42,6 +52,10 @@ namespace HotUI.Skia
         }
 
         public abstract void Draw(SKCanvas canvas, RectangleF dirtyRect);
+
+        public virtual void Animate(SKCanvas canvas, Animation animation)
+        {
+        }
 
         public virtual void StartHoverInteraction(PointF[] points)
         {

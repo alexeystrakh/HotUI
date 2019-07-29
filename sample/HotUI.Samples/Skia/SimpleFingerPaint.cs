@@ -32,6 +32,11 @@ namespace HotUI.Samples.Skia
             }
         }
 
+        public override void Animate(SKCanvas canvas, Animation animation)
+        {
+            // TODO: implement
+        }
+
         public override bool StartInteraction(PointF[] points)
         {
             var pointsList = new List<PointF> {points[0]};
